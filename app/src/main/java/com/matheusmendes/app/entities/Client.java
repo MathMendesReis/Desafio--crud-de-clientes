@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_client")
-public class Cliente {
+public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,9 +19,9 @@ public class Cliente {
     private Double income;
     private LocalDate birthDate;
     private Integer children;
-    public Cliente() {
+    public Client() {
     }
-    public Cliente(Long id, String name, String cpf, Double income, LocalDate birthDate, Integer children) {
+    public Client(Long id, String name, String cpf, Double income, LocalDate birthDate, Integer children) {
         this.id = id;
         this.name = name;
         this.cpf = cpf;
