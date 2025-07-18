@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.matheusmendes.app.dto.ClienteDTO;
 import com.matheusmendes.app.entities.Client;
+import com.matheusmendes.app.exceptions.ResourceNotFoundException;
 import com.matheusmendes.app.repositories.ClientRepostory;
-
 
 @Service
 public class ClienteService {
@@ -21,6 +21,17 @@ public class ClienteService {
     @Transactional(readOnly = true)
     public Page<ClienteDTO> findAll(Pageable p) {
         Page<Client> clients = repostory.findAll(p);
-        return clients.map(c -> new ClienteDTO(c.getId(), c.getName(), c.getCpf(), c.getIncome(),c.getBirthDate(), c.getChildren()));
+        return clients.map(c -> new ClienteDTO(c.getId(), c.getName(), c.getCpf(), c.getIncome(), c.getBirthDate(),
+                c.getChildren()));
+    }
+
+    @Transactional(readOnly = true)
+    public ClienteDTO findById(Long id) {
+        Client client = repostory.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Recurso não encontrado."));
+        ClienteDTO dto = new ClienteDTO(client.getId(), client.getName(), client.getCpf(), client.getIncome(),
+                client.getBirthDate(), client.getChildren());
+
+        return dto;
     }
 }
