@@ -2,11 +2,16 @@ package com.matheusmendes.app.dto;
 
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
+
 public class ClienteDTO {
     private Long id;
+    @NotBlank(message = "Campo requerido.")
     private String name;
     private String cpf;
     private Double income;
+    @PastOrPresent
     private LocalDate birthDate;
     private Integer children;
     public ClienteDTO(Long id, String name, String cpf, Double income, LocalDate birthDate, Integer children) {
