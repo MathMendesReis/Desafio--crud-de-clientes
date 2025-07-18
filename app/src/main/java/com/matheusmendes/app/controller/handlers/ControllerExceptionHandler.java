@@ -21,7 +21,7 @@ public class ControllerExceptionHandler {
     public ResponseEntity<CustomError> resourceNotFoundException(ResourceNotFoundException e,
             HttpServletRequest request) {
         HttpStatus status = HttpStatus.NOT_FOUND;
-        CustomError err = new CustomError(Instant.now(), status.value(), "Error de validação", request.getRequestURI());
+        CustomError err = new CustomError(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }
 
@@ -29,7 +29,7 @@ public class ControllerExceptionHandler {
     public ResponseEntity<CustomError> methodArgumentNotValidException(MethodArgumentNotValidException e,
             HttpServletRequest request) {
         HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
-        ValidationError err = new ValidationError(Instant.now(), status.value(), e.getMessage(),
+        ValidationError err = new ValidationError(Instant.now(), status.value(), "Error de validação.",
                 request.getRequestURI());
         for (FieldError f : e.getBindingResult().getFieldErrors()) {
             err.addErrors(f.getField(), f.getDefaultMessage());
