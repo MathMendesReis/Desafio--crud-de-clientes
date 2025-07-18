@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.matheusmendes.app.dto.ClienteDTO;
 import com.matheusmendes.app.services.ClienteService;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
@@ -20,9 +20,9 @@ public class ClienteController {
     private ClienteService service;
 
     @GetMapping()
-    public Page<ClienteDTO> findAll(Pageable p) {
+    public ResponseEntity<Page<ClienteDTO>> findAll(Pageable p) {
         Page<ClienteDTO> result = service.findAll(p);
-        return result;
+        return ResponseEntity.ok().body(result);
     }
 
 }
